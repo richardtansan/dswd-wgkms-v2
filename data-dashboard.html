@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<title>Data Dashboard - Nationwide Operations</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; margin: 0; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+    @media print {
+      aside, header, #filters-actions-bar, .no-print { display: none !important; }
+      .pl-72 { padding-left: 0 !important; }
+      main { padding-top: 0 !important; }
+    }
+  </style>
+</head>
+<body class="antialiased">
+<!-- LEFT SIDEBAR -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-white shadow-sm z-50 flex flex-col justify-between select-none border-r border-slate-200">
+<div class="flex flex-col">
+<div class="p-4 bg-white border-b border-slate-100">
+<div class="flex items-center gap-3 mb-3">
+<img alt="WGK Logo" class="h-10 w-auto object-contain" src="assets/wgk-logo.png"/>
+<img alt="DSWD Logo" class="h-10 w-auto object-contain" src="assets/dswd-logo.png"/>
+</div>
+<div>
+<h1 class="text-xs tracking-tight text-[#b5121b] uppercase font-bold">WALANG GUTOM KITCHEN</h1>
+<p class="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Management Information System</p>
+</div>
+</div>
+<div class="px-4 pt-4 pb-1">
+<span class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">Core Modules</span>
+</div>
+<nav class="flex flex-col gap-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-sm font-medium" href="index.html">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-sm font-medium" href="volunteers.html">
+<span class="material-symbols-outlined text-[20px]">volunteer_activism</span>
+<span class="">Volunteers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-sm font-medium" href="donations.html">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="">Donations</span>
+</a>
+<a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors bg-[#b5121b] text-white text-sm font-semibold shadow-sm" href="data-dashboard.html">
+<span class="material-symbols-outlined text-[20px]">bar_chart</span>
+<span class="">Data Dashboard</span>
+</a>
+<a class="flex items-center justify-between px-3 py-2 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors text-sm font-medium" href="inventory.html">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">warehouse</span>
+<span class="">Inventory</span>
+</div>
+<span class="px-1.5 py-0.5 bg-red-100 text-red-700 rounded text-[10px] font-bold">Expiring</span>
+</a>
+</nav>
+</div>
+<!-- User Profile Footer -->
+<div class="p-3 bg-slate-50 border-t border-slate-200">
+<div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-9 h-9 rounded-full bg-[#b5121b] text-white flex items-center justify-center font-bold text-sm shrink-0">
+            RS
+          </div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="text-xs text-slate-900 truncate font-semibold">Richard Emmanuel T. Sanchez</span>
+<span class="text-[11px] text-slate-500 truncate">DSWD Central - OUSIPD</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[11px]">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold">Authenticated</span>
+<div class="flex items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined text-[16px] cursor-pointer hover:text-slate-600">settings</span>
+<span class="material-symbols-outlined text-[16px] cursor-pointer hover:text-red-600">logout</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- TOP HEADER -->
+<div class="pl-72">
+<header class="fixed top-0 left-72 right-0 h-16 bg-white/95 backdrop-blur shadow-sm z-40 flex items-center justify-between px-8 border-b border-slate-200">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5 text-xs text-slate-500">
+<span class="material-symbols-outlined text-[16px]">home</span>
+<span class="">/</span>
+<span class="text-slate-800 font-semibold">GovPH • Command Overview</span>
+</div>
+<div class="flex items-center bg-slate-100 rounded-lg px-2.5 py-1 border border-slate-200">
+<span class="material-symbols-outlined text-slate-500 text-[16px] mr-1">location_on</span>
+<select class="bg-transparent text-xs text-slate-800 font-semibold focus:outline-none cursor-pointer" id="header-loc" onchange="filterDashboardLocation(this.value)">
+<option value="all">Nationwide Consolidated</option>
+<option value="pasay">Pasay City Hub</option>
+<option value="cebu">Cebu City Hub</option>
+<option value="zamboanga">Zamboanga City Hub</option>
+<option value="catbalogan">Catbalogan City Hub</option>
+</select>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden xl:flex items-center gap-1.5 px-3 py-1 bg-slate-100 rounded-lg text-slate-600 text-xs">
+<span class="material-symbols-outlined text-[15px]">event_available</span>
+<span class="">Data Coverage: 2024–Present (Audited)</span>
+</div>
+<!-- Mode Toggle (Admin / Guest) -->
+<div class="flex items-center bg-slate-100 rounded-lg p-0.5 border border-slate-200" id="role-toggle-group">
+<button class="px-3 py-1 rounded bg-[#b5121b] text-white text-xs font-semibold shadow-sm transition-all" id="toggle-admin" onclick="setRole('admin')" type="button">ADMIN</button>
+<button class="px-3 py-1 rounded text-slate-600 hover:text-slate-900 text-xs transition-all" id="toggle-guest" onclick="setRole('guest')" type="button">GUEST</button>
+</div>
+<button class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-50 text-red-700 hover:bg-red-100 transition-colors" type="button">
+<span class="material-symbols-outlined text-[17px]">notifications_active</span>
+<span class="text-xs font-bold">3 Alerts</span>
+</button>
+</div>
+</header>
+<!-- MAIN BODY -->
+<main class="pt-20 px-8 pb-16 space-y-6 max-w-[1550px] mx-auto">
+<!-- FILTERS & ACTIONS BAR -->
+<section class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm" id="filters-actions-bar">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+<div>
+<div class="flex items-center gap-2 text-slate-500 text-xs uppercase tracking-wider font-semibold mb-1">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-600"></span>
+<span class="">Republic of the Philippines • DSWD MIS Division</span>
+<span class="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-mono text-[11px] border border-slate-200">REPORT CODE: WGK-2026-Q3</span>
+</div>
+<h1 class="text-2xl text-[#b5121b] font-bold tracking-tight">Statistical Reporting &amp; Executive Analytics</h1>
+<p class="text-xs text-slate-600 mt-0.5">Audited programmatic reporting data for Walang Gutom 2027 Food Provision Kitchens across regional commissary networks.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2.5 shrink-0 no-print">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 text-xs font-semibold shadow-sm transition-all" onclick="window.print()">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span class="">Print Report</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 text-xs font-semibold shadow-sm transition-all">
+<span class="material-symbols-outlined text-[16px] text-[#b5121b]">picture_as_pdf</span>
+<span class="">Download PDF Report</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded bg-[#b5121b] text-white hover:bg-red-800 text-xs font-semibold shadow-sm transition-all">
+<span class="material-symbols-outlined text-[16px]">table_view</span>
+<span class="">Export Report (CSV)</span>
+</button>
+</div>
+</div>
+<!-- Filter Selectors -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+<div>
+<label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Reporting Year</label>
+<div class="relative">
+<select class="w-full text-xs bg-slate-50 border border-slate-300 rounded px-2.5 py-1.5 text-slate-800 font-medium focus:ring-1 focus:ring-red-600 focus:outline-none" id="filter-year">
+<option selected="">2026 CY Active</option>
+<option>2025 CY Audited</option>
+<option>2024–Present Consolidated</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Kitchen Location</label>
+<div class="relative">
+<select class="w-full text-xs bg-slate-50 border border-slate-300 rounded px-2.5 py-1.5 text-slate-800 font-medium focus:ring-1 focus:ring-red-600 focus:outline-none" id="filter-location" onchange="filterDashboardLocation(this.value)">
+<option selected="" value="all">Nationwide Consolidated</option>
+<option value="pasay">Pasay City (Central Hub)</option>
+<option value="cebu">Cebu City (Visayas Hub)</option>
+<option value="zamboanga">Zamboanga City (Mindanao)</option>
+<option value="catbalogan">Catbalogan City (Staging Node)</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Reporting Month</label>
+<div class="relative">
+<select class="w-full text-xs bg-slate-50 border border-slate-300 rounded px-2.5 py-1.5 text-slate-800 font-medium focus:ring-1 focus:ring-red-600 focus:outline-none" id="filter-month">
+<option selected="">All Months (Jan–Sep 2026)</option>
+<option>January</option>
+<option>February</option>
+<option>March</option>
+<option>April</option>
+<option>May</option>
+<option>June</option>
+<option>July</option>
+<option>August</option>
+<option>September</option>
+</select>
+</div>
+</div>
+<div>
+<label class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">Performance Indicator</label>
+<div class="relative">
+<select class="w-full text-xs bg-slate-50 border border-slate-300 rounded px-2.5 py-1.5 text-slate-800 font-medium focus:ring-1 focus:ring-red-600 focus:outline-none" id="filter-indicator">
+<option selected="">All Metrics (Consolidated)</option>
+<option>Total Meals Served</option>
+<option>AM Meals Distribution</option>
+<option>PM Meals Distribution</option>
+<option>Pax Served</option>
+<option>Returned Individuals</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Audit Alert Flag -->
+<div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2.5 text-xs text-amber-900">
+<span class="material-symbols-outlined text-[18px] text-amber-700 shrink-0 mt-0.5">verified_user</span>
+<div class="flex-1">
+<strong>Official Data Integrity Notice:</strong> Reported Nationwide Total Meals Served is <strong class="font-mono">427,049</strong>. Combined AM (<span class="font-mono font-semibold">184,846</span>) + PM (<span class="font-mono font-semibold">234,319</span>) equals <span class="font-mono font-semibold">419,165</span> meals. As per government audit directives, official reported figures are preserved verbatim, with <span class="bg-amber-100 px-1 py-0.5 rounded font-mono font-bold text-amber-950">Δ 7,884 meals</span> flagged for formal verification reconciliation.
+          </div>
+<span class="px-2 py-0.5 bg-amber-200/60 rounded text-[10px] font-bold uppercase tracking-wider text-amber-900 shrink-0">Audited Ledger</span>
+</div>
+</section>
+<!-- SECTION 1: NATIONWIDE KITCHEN OPERATIONS -->
+<section class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm" id="section-nationwide">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 mb-5 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-[10px] font-bold rounded">SECTION 1</span>
+<h2 class="text-lg font-bold text-slate-900 tracking-tight">NATIONWIDE KITCHEN OPERATIONS</h2>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Consolidated operational performance of Walang Gutom Kitchens nationwide.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-mono font-semibold border border-slate-200">
+              Coverage: 2024–Present
+            </span>
+<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-md text-xs font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Active Ledger
+            </span>
+</div>
+</div>
+<!-- 5 Large Summary Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+<!-- Total Meals -->
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between relative overflow-hidden">
+<div>
+<div class="flex items-center justify-between text-slate-500 mb-1">
+<span class="text-[11px] font-bold uppercase tracking-wider">Total Meals Served</span>
+<span class="material-symbols-outlined text-[#b5121b] text-[20px]">restaurant</span>
+</div>
+<div class="text-3xl font-extrabold font-mono text-[#b5121b] tracking-tight">427,049</div>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500">
+<span class="text-emerald-700 font-semibold flex items-center gap-0.5"><span class="material-symbols-outlined text-[13px]">trending_up</span> +34.5%</span>
+<span class="">All Depots</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-[#b5121b]"></div>
+</div>
+<!-- AM Meals -->
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between relative overflow-hidden">
+<div>
+<div class="flex items-center justify-between text-slate-500 mb-1">
+<span class="text-[11px] font-bold uppercase tracking-wider">AM Meals</span>
+<span class="material-symbols-outlined text-amber-600 text-[20px]">wb_sunny</span>
+</div>
+<div class="text-3xl font-extrabold font-mono text-slate-800 tracking-tight">184,846</div>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500">
+<span class="font-bold text-amber-700">43.3% share</span>
+<span class="">Morning Shift</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-amber-500"></div>
+</div>
+<!-- PM Meals -->
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between relative overflow-hidden">
+<div>
+<div class="flex items-center justify-between text-slate-500 mb-1">
+<span class="text-[11px] font-bold uppercase tracking-wider">PM Meals</span>
+<span class="material-symbols-outlined text-red-600 text-[20px]">nights_stay</span>
+</div>
+<div class="text-3xl font-extrabold font-mono text-slate-800 tracking-tight">234,319</div>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500">
+<span class="font-bold text-red-700">54.9% share</span>
+<span class="">Afternoon/Eve</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-red-600"></div>
+</div>
+<!-- Returned Individuals -->
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between relative overflow-hidden">
+<div>
+<div class="flex items-center justify-between text-slate-500 mb-1">
+<span class="text-[11px] font-bold uppercase tracking-wider">Returned Individuals</span>
+<span class="material-symbols-outlined text-slate-600 text-[20px]">repeat</span>
+</div>
+<div class="text-3xl font-extrabold font-mono text-slate-800 tracking-tight">105,789</div>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500">
+<span class="font-semibold text-slate-700">34.4% return rate</span>
+<span class="">Repeated visits</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-slate-500"></div>
+</div>
+<!-- Total Pax Served -->
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between relative overflow-hidden">
+<div>
+<div class="flex items-center justify-between text-slate-500 mb-1">
+<span class="text-[11px] font-bold uppercase tracking-wider">Total Pax Served</span>
+<span class="material-symbols-outlined text-emerald-700 text-[20px]">groups</span>
+</div>
+<div class="text-3xl font-extrabold font-mono text-emerald-700 tracking-tight">307,493</div>
+</div>
+<div class="mt-3 pt-2 border-t border-slate-200/60 flex items-center justify-between text-[11px] text-slate-500">
+<span class="font-bold text-emerald-700">Unique Citizens</span>
+<span class="">Biometric Pax</span>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-1 bg-emerald-600"></div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: KITCHEN PERFORMANCE COMPARISON -->
+<section class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm" id="section-locations">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 mb-5 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-[10px] font-bold rounded">SECTION 2</span>
+<h2 class="text-lg font-bold text-slate-900 tracking-tight">KITCHEN PERFORMANCE BY LOCATION</h2>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Comparative breakdown across regional central commissary kitchens (Click cards to filter monthly breakdowns).</p>
+</div>
+</div>
+<!-- Comparative Horizontal Bar Chart -->
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
+<div class="flex items-center justify-between mb-3">
+<span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Comparative Regional Meal Volume &amp; Pax Reach</span>
+<div class="flex items-center gap-4 text-xs font-medium text-slate-600">
+<span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-[#b5121b]"></span> Total Meals</span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded bg-emerald-600"></span> Pax Served</span>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Pasay -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-bold text-slate-900">Pasay City (Central Hub)</span>
+<span class="font-mono text-slate-700"><strong class="text-[#b5121b]">355,524</strong> Meals (83.2%) • <strong class="text-emerald-700">257,501</strong> Pax</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden flex">
+<div class="bg-[#b5121b] h-full rounded-full" style="width: 83.2%"></div>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
+<div class="bg-emerald-600 h-full rounded-full" style="width: 83.7%"></div>
+</div>
+</div>
+<!-- Cebu -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-bold text-slate-900">Cebu City (Visayas Hub)</span>
+<span class="font-mono text-slate-700"><strong class="text-[#b5121b]">46,149</strong> Meals (10.8%) • <strong class="text-emerald-700">28,818</strong> Pax</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden flex">
+<div class="bg-red-400 h-full rounded-full" style="width: 10.8%"></div>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
+<div class="bg-emerald-600 h-full rounded-full" style="width: 9.4%"></div>
+</div>
+</div>
+<!-- Zamboanga -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-bold text-slate-900">Zamboanga City (Mindanao Hub)</span>
+<span class="font-mono text-slate-700"><strong class="text-[#b5121b]">25,376</strong> Meals (5.9%) • <strong class="text-emerald-700">21,174</strong> Pax</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden flex">
+<div class="bg-slate-400 h-full rounded-full" style="width: 5.9%"></div>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden flex">
+<div class="bg-emerald-600 h-full rounded-full" style="width: 6.9%"></div>
+</div>
+</div>
+<!-- Catbalogan -->
+<div class="space-y-1">
+<div class="flex justify-between text-xs text-slate-500">
+<span class="font-medium">Catbalogan City (Eastern Visayas)</span>
+<span class="font-mono italic text-amber-700">DATA NOT YET AVAILABLE (Staging node)</span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 border border-dashed border-amber-300 bg-amber-50"></div>
+</div>
+</div>
+</div>
+<!-- 4 Clickable Location Summary Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Pasay Card -->
+<div class="cursor-pointer bg-white p-4 rounded-xl border-2 border-red-200 hover:border-[#b5121b] transition-all shadow-sm flex flex-col justify-between group" onclick="filterDashboardLocation('pasay')">
+<div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-bold text-sm text-slate-900 group-hover:text-[#b5121b]">PASAY CITY</h3>
+<span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Active High Vol</span>
+</div>
+<p class="text-[11px] text-slate-500 mb-2 font-medium">Coverage: 2024–Present</p>
+<div class="space-y-1.5 py-2 border-y border-slate-100 text-xs">
+<div class="flex justify-between"><span class="text-slate-500">Total Meals:</span><span class="font-mono font-bold text-[#b5121b]">355,524</span></div>
+<div class="flex justify-between"><span class="text-slate-500">AM Meals:</span><span class="font-mono font-medium text-slate-700">158,133</span></div>
+<div class="flex justify-between"><span class="text-slate-500">PM Meals:</span><span class="font-mono font-medium text-slate-700">189,507</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Returned:</span><span class="font-mono font-medium text-slate-700">98,385</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Total Pax:</span><span class="font-mono font-bold text-emerald-700">257,501</span></div>
+</div>
+</div>
+<div class="mt-3 pt-1 flex items-center justify-between text-xs text-[#b5121b] font-semibold">
+<span class="">View Monthly ↓</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+<!-- Cebu Card -->
+<div class="cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-[#b5121b] transition-all shadow-sm flex flex-col justify-between group" onclick="filterDashboardLocation('cebu')">
+<div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-bold text-sm text-slate-900 group-hover:text-[#b5121b]">CEBU CITY</h3>
+<span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-[10px] font-bold">Scale-Up Active</span>
+</div>
+<p class="text-[11px] text-slate-500 mb-2 font-medium">Coverage: June–September 2026</p>
+<div class="space-y-1.5 py-2 border-y border-slate-100 text-xs">
+<div class="flex justify-between"><span class="text-slate-500">Total Meals:</span><span class="font-mono font-bold text-[#b5121b]">46,149</span></div>
+<div class="flex justify-between"><span class="text-slate-500">AM Meals:</span><span class="font-mono font-medium text-slate-700">20,206</span></div>
+<div class="flex justify-between"><span class="text-slate-500">PM Meals:</span><span class="font-mono font-medium text-slate-700">25,943</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Returned:</span><span class="font-mono font-medium text-slate-700">3,036</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Total Pax:</span><span class="font-mono font-bold text-emerald-700">28,818</span></div>
+</div>
+</div>
+<div class="mt-3 pt-1 flex items-center justify-between text-xs text-[#b5121b] font-semibold">
+<span class="">View Monthly ↓</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+<!-- Zamboanga Card -->
+<div class="cursor-pointer bg-white p-4 rounded-xl border border-slate-200 hover:border-[#b5121b] transition-all shadow-sm flex flex-col justify-between group" onclick="filterDashboardLocation('zamboanga')">
+<div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-bold text-sm text-slate-900 group-hover:text-[#b5121b]">ZAMBOANGA CITY</h3>
+<span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-[10px] font-bold">Mindanao Active</span>
+</div>
+<p class="text-[11px] text-slate-500 mb-2 font-medium">Coverage: June–September 2026</p>
+<div class="space-y-1.5 py-2 border-y border-slate-100 text-xs">
+<div class="flex justify-between"><span class="text-slate-500">Total Meals:</span><span class="font-mono font-bold text-[#b5121b]">25,376</span></div>
+<div class="flex justify-between"><span class="text-slate-500">AM Meals:</span><span class="font-mono font-medium text-slate-700">6,507</span></div>
+<div class="flex justify-between"><span class="text-slate-500">PM Meals:</span><span class="font-mono font-medium text-slate-700">18,869</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Returned:</span><span class="font-mono font-medium text-slate-700">4,368</span></div>
+<div class="flex justify-between"><span class="text-slate-500">Total Pax:</span><span class="font-mono font-bold text-emerald-700">21,174</span></div>
+</div>
+</div>
+<div class="mt-3 pt-1 flex items-center justify-between text-xs text-[#b5121b] font-semibold">
+<span class="">View Monthly ↓</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</div>
+</div>
+<!-- Catbalogan Card -->
+<div class="cursor-pointer bg-white p-4 rounded-xl border border-dashed border-amber-300 hover:border-amber-400 transition-all shadow-sm flex flex-col justify-between" onclick="filterDashboardLocation('catbalogan')">
+<div>
+<div class="flex items-center justify-between mb-1">
+<h3 class="font-bold text-sm text-slate-900">CATBALOGAN CITY</h3>
+<span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[9px] font-bold">DATA NOT AVAILABLE</span>
+</div>
+<p class="text-[11px] text-slate-500 mb-2 font-medium">Coverage: Planned Q4 Integration</p>
+<div class="py-5 text-center text-xs text-slate-500 border-y border-slate-100 space-y-1">
+<span class="material-symbols-outlined text-[24px] text-amber-600">construction</span>
+<p class="font-medium text-slate-600">Commissary infrastructure staging underway.</p>
+</div>
+</div>
+<div class="mt-3 pt-1 flex items-center justify-between text-xs text-amber-800 font-semibold">
+<span class="">Staging Details</span>
+<span class="material-symbols-outlined text-[16px]">pending</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: PASAY CITY MONTHLY PERFORMANCE -->
+<section class="location-section bg-white p-6 rounded-xl border border-slate-200 shadow-sm" id="section-pasay">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 mb-5 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-[10px] font-bold rounded">SECTION 3</span>
+<h2 class="text-lg font-bold text-slate-900 tracking-tight">PASAY CITY – MONTHLY OPERATIONS</h2>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Central Hub Continuous Multi-Shift commissary line throughput</p>
+</div>
+<span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs font-mono font-semibold border border-slate-200">
+            Reporting Period: January–September 2026
+          </span>
+</div>
+<!-- Pasay Monthly Visualization Chart -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5"><div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between shadow-sm"><div class="flex flex-wrap items-center justify-between pb-2 mb-2 border-b border-slate-200"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-[#b5121b]"></span><h4 class="text-xs font-bold uppercase tracking-wider text-slate-800">Chart A: Meals Output Distribution</h4></div><div class="flex flex-wrap items-center gap-3 text-[11px] font-medium"><span class="flex items-center gap-1.5 text-slate-700"><span class="w-3 h-2.5 rounded-sm bg-amber-500 inline-block"></span> AM Meals</span><span class="flex items-center gap-1.5 text-slate-700"><span class="w-3 h-2.5 rounded-sm bg-[#b5121b] inline-block"></span> PM Meals</span><span class="flex items-center gap-1.5 text-[#b5121b] font-bold"><span class="w-2 h-2 rounded-full border-2 border-[#b5121b] inline-block bg-white"></span> Total Line</span></div></div><div class="w-full overflow-hidden"><svg class="w-full h-auto select-none" style="min-height: 250px;" viewbox="0 0 540 280"><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="30" y2="30"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="34">25k</text><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="76" y2="76"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="80">20k</text><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="122" y2="122"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="126">15k</text><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="168" y2="168"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="172">10k</text><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="214" y2="214"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="218">5k</text><line stroke="#94a3b8" stroke-width="1.5" x1="45" x2="520" y1="240" y2="240"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="243">0k</text><g class="group cursor-pointer"><title>Jan 2026: AM 6,256 | PM 7,241 | Total 13,497</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="58" rx="2" width="14" x="55" y="182"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="67" rx="2" width="14" x="71" y="173"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="70" y="256">Jan</text></g><g class="group cursor-pointer"><title>Feb 2026: AM 7,226 | PM 8,295 | Total 15,521</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="67" rx="2" width="14" x="107" y="173"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="76" rx="2" width="14" x="123" y="164"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="122" y="256">Feb</text></g><g class="group cursor-pointer"><title>Mar 2026: AM 8,223 | PM 8,623 | Total 16,846</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="76" rx="2" width="14" x="159" y="164"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="79" rx="2" width="14" x="175" y="161"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="174" y="256">Mar</text></g><g class="group cursor-pointer"><title>Apr 2026: AM 7,029 | PM 7,487 | Total 14,516</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="65" rx="2" width="14" x="211" y="175"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="69" rx="2" width="14" x="227" y="171"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="226" y="256">Apr</text></g><g class="group cursor-pointer"><title>May 2026: AM 7,922 | PM 8,601 | Total 16,523</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="73" rx="2" width="14" x="263" y="167"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="79" rx="2" width="14" x="279" y="161"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="278" y="256">May</text></g><g class="group cursor-pointer"><title>Jun 2026: AM 7,452 | PM 8,249 | Total 15,701</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="69" rx="2" width="14" x="315" y="171"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="76" rx="2" width="14" x="331" y="164"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="330" y="256">Jun</text></g><g class="group cursor-pointer"><title>Jul 2026: AM 7,543 | PM 8,628 | Total 16,171</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="70" rx="2" width="14" x="367" y="170"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="79" rx="2" width="14" x="383" y="161"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="382" y="256">Jul</text></g><g class="group cursor-pointer"><title>Aug 2026: AM 7,048 | PM 8,633 | Total 15,681</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="65" rx="2" width="14" x="419" y="175"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="80" rx="2" width="14" x="435" y="160"></rect><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="434" y="256">Aug</text></g><g class="group cursor-pointer"><title>Sep 2026 (Peak): AM 6,860 | PM 8,691 | Total 23,435</title><rect class="transition-all hover:opacity-85" fill="#f59e0b" height="63" rx="2" width="14" x="471" y="177"></rect><rect class="transition-all hover:opacity-85" fill="#b5121b" height="80" rx="2" width="14" x="487" y="160"></rect><text class="text-[11px] font-bold fill-[#b5121b]" text-anchor="middle" x="486" y="256">Sep*</text></g><polyline fill="none" points="70,116 122,97 174,85 226,106 278,88 330,95 382,91 434,96 486,24" stroke="#b5121b" stroke-dasharray="4 2" stroke-width="2.5"></polyline><g><circle cx="70" cy="116" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="70" y="108">13.5k</text><circle cx="122" cy="97" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="122" y="89">15.5k</text><circle cx="174" cy="85" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="174" y="77">16.8k</text><circle cx="226" cy="106" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="226" y="98">14.5k</text><circle cx="278" cy="88" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="278" y="80">16.5k</text><circle cx="330" cy="95" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="330" y="87">15.7k</text><circle cx="382" cy="91" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="382" y="83">16.2k</text><circle cx="434" cy="96" fill="#ffffff" r="4" stroke="#b5121b" stroke-width="2.5"></circle><text class="text-[9px] font-mono font-bold fill-[#b5121b]" text-anchor="middle" x="434" y="88">15.7k</text><circle cx="486" cy="24" fill="#b5121b" r="5" stroke="#ffffff" stroke-width="2"></circle><rect fill="#b5121b" height="15" rx="3" width="40" x="466" y="4"></rect><text class="text-[9px] font-mono font-bold fill-white" text-anchor="middle" x="486" y="15">23.4k*</text></g></svg></div><div class="mt-2 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-500 font-medium"><span class="">Morning vs Afternoon line volumes</span><span class="font-mono font-bold text-[#b5121b]">Subtotal: 147,890 Meals</span></div></div><div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex flex-col justify-between shadow-sm"><div class="flex flex-wrap items-center justify-between pb-2 mb-2 border-b border-slate-200"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span><h4 class="text-xs font-bold uppercase tracking-wider text-slate-800">Chart B: Beneficiary Reach &amp; Repeat Ratios</h4></div><div class="flex flex-wrap items-center gap-3 text-[11px] font-medium"><span class="flex items-center gap-1.5 text-slate-700"><span class="w-3 h-2.5 rounded-sm bg-emerald-600 inline-block"></span> Total Pax Served</span><span class="flex items-center gap-1.5 text-slate-700"><span class="w-3 h-2.5 rounded-sm bg-slate-500 inline-block"></span> Returned Indiv.</span></div></div><div class="w-full overflow-hidden"><svg class="w-full h-auto select-none" style="min-height: 250px;" viewbox="0 0 540 280"><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="30" y2="30"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="34">20k</text><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="82" y2="82"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="86">15k</text><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="135" y2="135"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="139">10k</text><line stroke="#e2e8f0" stroke-dasharray="3 3" x1="45" x2="520" y1="187" y2="187"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="191">5k</text><line stroke="#94a3b8" stroke-width="1.5" x1="45" x2="520" y1="240" y2="240"></line><text class="text-[10px] fill-slate-400 font-mono" text-anchor="end" x="38" y="243">0k</text><g class="group cursor-pointer"><title>Jan 2026: Pax 9,959 | Returned 3,538 (35.5%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="105" rx="2" width="15" x="55" y="135"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="37" rx="2" width="15" x="72" y="203"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="71" y="128">10.0k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="71" y="256">Jan</text></g><g class="group cursor-pointer"><title>Feb 2026: Pax 11,117 | Returned 4,404 (39.6%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="117" rx="2" width="15" x="107" y="123"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="46" rx="2" width="15" x="124" y="194"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="123" y="116">11.1k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="123" y="256">Feb</text></g><g class="group cursor-pointer"><title>Mar 2026: Pax 12,417 | Returned 4,429 (35.7%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="130" rx="2" width="15" x="159" y="110"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="47" rx="2" width="15" x="176" y="193"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="175" y="103">12.4k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="175" y="256">Mar</text></g><g class="group cursor-pointer"><title>Apr 2026: Pax 10,810 | Returned 3,774 (34.9%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="114" rx="2" width="15" x="211" y="126"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="40" rx="2" width="15" x="228" y="200"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="227" y="119">10.8k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="227" y="256">Apr</text></g><g class="group cursor-pointer"><title>May 2026: Pax 12,205 | Returned 4,298 (35.2%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="128" rx="2" width="15" x="263" y="112"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="45" rx="2" width="15" x="280" y="195"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="279" y="105">12.2k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="279" y="256">May</text></g><g class="group cursor-pointer"><title>Jun 2026: Pax 11,488 | Returned 4,213 (36.7%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="121" rx="2" width="15" x="315" y="119"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="44" rx="2" width="15" x="332" y="196"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="331" y="112">11.5k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="331" y="256">Jun</text></g><g class="group cursor-pointer"><title>Jul 2026: Pax 11,830 | Returned 4,341 (36.7%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="124" rx="2" width="15" x="367" y="116"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="46" rx="2" width="15" x="384" y="194"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="383" y="109">11.8k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="383" y="256">Jul</text></g><g class="group cursor-pointer"><title>Aug 2026: Pax 11,236 | Returned 4,445 (39.6%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="118" rx="2" width="15" x="419" y="122"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="47" rx="2" width="15" x="436" y="193"></rect><text class="text-[9px] font-mono font-bold fill-emerald-700" text-anchor="middle" x="435" y="115">11.2k</text><text class="text-[11px] font-semibold fill-slate-600" text-anchor="middle" x="435" y="256">Aug</text></g><g class="group cursor-pointer"><title>Sep 2026: Pax 17,455 | Returned 5,980 (34.3%)</title><rect class="transition-all hover:opacity-85" fill="#059669" height="183" rx="2" width="15" x="471" y="57"></rect><rect class="transition-all hover:opacity-85" fill="#64748b" height="63" rx="2" width="15" x="488" y="177"></rect><rect fill="#059669" height="15" rx="3" width="38" x="465" y="37"></rect><text class="text-[9px] font-mono font-bold fill-white" text-anchor="middle" x="484" y="48">17.5k*</text><text class="text-[11px] font-bold fill-emerald-700" text-anchor="middle" x="484" y="256">Sep*</text></g></svg></div><div class="mt-2 pt-2 border-t border-slate-200/80 flex items-center justify-between text-[11px] text-slate-500 font-medium"><span class="">Unique headcount vs recurring visits</span><span class="font-mono font-bold text-emerald-700">Subtotal: 108,517 Pax</span></div></div></div>
+<!-- Detailed Table: Pasay City -->
+<div class="overflow-x-auto rounded-lg border border-slate-200">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-100 font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200">
+<tr>
+<th class="py-2.5 px-3">Month</th>
+<th class="py-2.5 px-3 text-right">Total Meals Served</th>
+<th class="py-2.5 px-3 text-right">AM Meals</th>
+<th class="py-2.5 px-3 text-right">PM Meals</th>
+<th class="py-2.5 px-3 text-right">Returned Individuals</th>
+<th class="py-2.5 px-3 text-right">Total Pax Served</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">January</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">13,497</td><td class="py-2 px-3 text-right font-mono">6,256</td><td class="py-2 px-3 text-right font-mono">7,241</td><td class="py-2 px-3 text-right font-mono text-slate-500">3,538</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">9,959</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">February</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">15,521</td><td class="py-2 px-3 text-right font-mono">7,226</td><td class="py-2 px-3 text-right font-mono">8,295</td><td class="py-2 px-3 text-right font-mono text-slate-500">4,404</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">11,117</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">March</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">16,846</td><td class="py-2 px-3 text-right font-mono">8,223</td><td class="py-2 px-3 text-right font-mono">8,623</td><td class="py-2 px-3 text-right font-mono text-slate-500">4,429</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">12,417</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">April</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">14,516</td><td class="py-2 px-3 text-right font-mono">7,029</td><td class="py-2 px-3 text-right font-mono">7,487</td><td class="py-2 px-3 text-right font-mono text-slate-500">3,774</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">10,810</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">May</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">16,523</td><td class="py-2 px-3 text-right font-mono">7,922</td><td class="py-2 px-3 text-right font-mono">8,601</td><td class="py-2 px-3 text-right font-mono text-slate-500">4,298</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">12,205</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">June</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">15,701</td><td class="py-2 px-3 text-right font-mono">7,452</td><td class="py-2 px-3 text-right font-mono">8,249</td><td class="py-2 px-3 text-right font-mono text-slate-500">4,213</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">11,488</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">July</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">16,171</td><td class="py-2 px-3 text-right font-mono">7,543</td><td class="py-2 px-3 text-right font-mono">8,628</td><td class="py-2 px-3 text-right font-mono text-slate-500">4,341</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">11,830</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">August</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">15,681</td><td class="py-2 px-3 text-right font-mono">7,048</td><td class="py-2 px-3 text-right font-mono">8,633</td><td class="py-2 px-3 text-right font-mono text-slate-500">4,445</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">11,236</td></tr>
+<tr class="hover:bg-slate-50 bg-red-50/40"><td class="py-2 px-3 font-bold text-[#b5121b]">September</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">23,435</td><td class="py-2 px-3 text-right font-mono font-semibold">6,860</td><td class="py-2 px-3 text-right font-mono font-semibold">8,691</td><td class="py-2 px-3 text-right font-mono font-semibold text-slate-700">5,980</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">17,455</td></tr>
+</tbody>
+<tfoot class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-300">
+<tr>
+<td class="py-2.5 px-3">2026 CY Subtotal</td>
+<td class="py-2.5 px-3 text-right font-mono text-[#b5121b]">147,890</td>
+<td class="py-2.5 px-3 text-right font-mono">65,559</td>
+<td class="py-2.5 px-3 text-right font-mono">74,448</td>
+<td class="py-2.5 px-3 text-right font-mono">39,424</td>
+<td class="py-2.5 px-3 text-right font-mono text-emerald-700">108,517</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<p class="text-[11px] text-slate-500 mt-2 text-right">*Note: Pasay cumulative ledger including 2024–2025 archival volume accounts for 355,524 Meals and 257,501 Pax Served.</p>
+</section>
+<!-- SECTION 4: CEBU CITY MONTHLY PERFORMANCE -->
+<section class="location-section bg-white p-6 rounded-xl border border-slate-200 shadow-sm" id="section-cebu">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 mb-5 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-[10px] font-bold rounded">SECTION 4</span>
+<h2 class="text-lg font-bold text-slate-900 tracking-tight">CEBU CITY – MONTHLY OPERATIONS</h2>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Visayas Commissary Operating Hub (Prior months Jan–May 2026 not operational / baseline preparation)</p>
+</div>
+<span class="px-2.5 py-1 bg-blue-50 text-blue-800 rounded-md text-xs font-mono font-semibold border border-blue-200">
+            Reporting Period: June–September 2026
+          </span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+<!-- Mini visual bar -->
+<div class="lg:col-span-5 bg-slate-50 p-4 rounded-xl border border-slate-200 h-full flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Cebu Trajectory (Jun–Sep 2026)</span>
+<span class="text-xs font-mono font-bold text-[#b5121b]">Total: 46,149 Meals</span>
+</div>
+<div class="h-36 flex items-end justify-around gap-3 pt-4 pb-2 border-b border-slate-200">
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-slate-500 mb-1">2,008</span>
+<div class="w-8 bg-slate-400 rounded-t" style="height: 12.8%;"></div>
+<span class="text-xs font-bold text-slate-600 mt-1.5">Jun</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-slate-500 mb-1">13,495</span>
+<div class="w-8 bg-red-400 rounded-t" style="height: 86.2%;"></div>
+<span class="text-xs font-bold text-slate-600 mt-1.5">Jul</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-[#b5121b] font-bold mb-1">15,641</span>
+<div class="w-8 bg-[#b5121b] rounded-t" style="height: 100.0%;"></div>
+<span class="text-xs font-bold text-[#b5121b] mt-1.5">Aug</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-slate-500 mb-1">15,005</span>
+<div class="w-8 bg-red-500 rounded-t" style="height: 95.9%;"></div>
+<span class="text-xs font-bold text-slate-600 mt-1.5">Sep</span>
+</div>
+</div>
+<p class="text-[11px] text-slate-500 mt-2">Scale-up operationalization initiated June 2026, stabilizing at ~15k monthly rations.</p>
+</div>
+<!-- Table -->
+<div class="lg:col-span-7 overflow-x-auto rounded-lg border border-slate-200">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-100 font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200">
+<tr>
+<th class="py-2.5 px-3">Month</th>
+<th class="py-2.5 px-3 text-right">Total Meals Served</th>
+<th class="py-2.5 px-3 text-right">AM Meals</th>
+<th class="py-2.5 px-3 text-right">PM Meals</th>
+<th class="py-2.5 px-3 text-right">Returned Indiv.</th>
+<th class="py-2.5 px-3 text-right">Total Pax Served</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">June</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">2,008</td><td class="py-2 px-3 text-right font-mono">2,008</td><td class="py-2 px-3 text-right font-mono">0</td><td class="py-2 px-3 text-right font-mono text-slate-500">0</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">2,008</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">July</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">13,495</td><td class="py-2 px-3 text-right font-mono">5,321</td><td class="py-2 px-3 text-right font-mono">8,174</td><td class="py-2 px-3 text-right font-mono text-slate-500">250</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">8,198</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">August</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">15,641</td><td class="py-2 px-3 text-right font-mono">7,563</td><td class="py-2 px-3 text-right font-mono">8,078</td><td class="py-2 px-3 text-right font-mono text-slate-500">541</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">8,091</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-2 px-3 font-medium">September</td><td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">15,005</td><td class="py-2 px-3 text-right font-mono">7,322</td><td class="py-2 px-3 text-right font-mono">7,683</td><td class="py-2 px-3 text-right font-mono text-slate-500">2,245</td><td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">10,521</td></tr>
+</tbody>
+<tfoot class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-300">
+<tr>
+<td class="py-2.5 px-3">Subtotal</td>
+<td class="py-2.5 px-3 text-right font-mono text-[#b5121b]">46,149</td>
+<td class="py-2.5 px-3 text-right font-mono">20,206</td>
+<td class="py-2.5 px-3 text-right font-mono">25,943</td>
+<td class="py-2.5 px-3 text-right font-mono">3,036</td>
+<td class="py-2.5 px-3 text-right font-mono text-emerald-700">28,818</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</section>
+<!-- SECTION 5: ZAMBOANGA CITY MONTHLY PERFORMANCE -->
+<section class="location-section bg-white p-6 rounded-xl border border-slate-200 shadow-sm" id="section-zamboanga">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 mb-5 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-[10px] font-bold rounded">SECTION 5</span>
+<h2 class="text-lg font-bold text-slate-900 tracking-tight">ZAMBOANGA CITY – MONTHLY OPERATIONS</h2>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Western Mindanao Regional Operations (June–September 2026)</p>
+</div>
+<span class="px-2.5 py-1 bg-purple-50 text-purple-800 rounded-md text-xs font-mono font-semibold border border-purple-200">
+            Reporting Period: June–September 2026
+          </span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+<!-- Mini visual bar -->
+<div class="lg:col-span-5 bg-slate-50 p-4 rounded-xl border border-slate-200 h-full flex flex-col justify-between">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Zamboanga Trajectory</span>
+<span class="text-xs font-mono font-bold text-[#b5121b]">Total: 25,376 Meals</span>
+</div>
+<div class="h-36 flex items-end justify-around gap-3 pt-4 pb-2 border-b border-slate-200">
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-slate-500 mb-1">316</span>
+<div class="w-8 bg-slate-400 rounded-t" style="height: 3.3%;"></div>
+<span class="text-xs font-bold text-slate-600 mt-1.5">Jun</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-slate-500 mb-1">6,303</span>
+<div class="w-8 bg-red-400 rounded-t" style="height: 65.5%;"></div>
+<span class="text-xs font-bold text-slate-600 mt-1.5">Jul</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-slate-500 mb-1">9,132</span>
+<div class="w-8 bg-red-500 rounded-t" style="height: 94.9%;"></div>
+<span class="text-xs font-bold text-slate-600 mt-1.5">Aug</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-14">
+<span class="font-mono text-[10px] text-[#b5121b] font-bold mb-1">9,625</span>
+<div class="w-8 bg-[#b5121b] rounded-t" style="height: 100.0%;"></div>
+<span class="text-xs font-bold text-[#b5121b] mt-1.5">Sep</span>
+</div>
+</div>
+<p class="text-[11px] text-slate-500 mt-2"><strong>Data Rule:</strong> June and July PM Meals &amp; Returned recorded strictly as <em>N/A</em> per protocol.</p>
+</div>
+<!-- Table -->
+<div class="lg:col-span-7 overflow-x-auto rounded-lg border border-slate-200">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-100 font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200">
+<tr>
+<th class="py-2.5 px-3">Month</th>
+<th class="py-2.5 px-3 text-right">Total Meals Served</th>
+<th class="py-2.5 px-3 text-right">AM Meals</th>
+<th class="py-2.5 px-3 text-right">PM Meals</th>
+<th class="py-2.5 px-3 text-right">Returned Indiv.</th>
+<th class="py-2.5 px-3 text-right">Total Pax Served</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr class="hover:bg-slate-50">
+<td class="py-2 px-3 font-medium">June</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">316</td>
+<td class="py-2 px-3 text-right font-mono">316</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-slate-400 bg-slate-50">N/A</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-slate-400 bg-slate-50">N/A</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">316</td>
+</tr>
+<tr class="hover:bg-slate-50">
+<td class="py-2 px-3 font-medium">July</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">6,303</td>
+<td class="py-2 px-3 text-right font-mono">6,303</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-slate-400 bg-slate-50">N/A</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-slate-400 bg-slate-50">N/A</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">6,303</td>
+</tr>
+<tr class="hover:bg-slate-50">
+<td class="py-2 px-3 font-medium">August</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">9,132</td>
+<td class="py-2 px-3 text-right font-mono">2,913</td>
+<td class="py-2 px-3 text-right font-mono">6,219</td>
+<td class="py-2 px-3 text-right font-mono text-slate-500">2,289</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">7,055</td>
+</tr>
+<tr class="hover:bg-slate-50">
+<td class="py-2 px-3 font-medium">September</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-[#b5121b]">9,625</td>
+<td class="py-2 px-3 text-right font-mono">3,594</td>
+<td class="py-2 px-3 text-right font-mono">6,031</td>
+<td class="py-2 px-3 text-right font-mono text-slate-500">2,079</td>
+<td class="py-2 px-3 text-right font-mono font-bold text-emerald-700">7,500</td>
+</tr>
+</tbody>
+<tfoot class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-300">
+<tr>
+<td class="py-2.5 px-3">Subtotal</td>
+<td class="py-2.5 px-3 text-right font-mono text-[#b5121b]">25,376</td>
+<td class="py-2.5 px-3 text-right font-mono">13,126</td>
+<td class="py-2.5 px-3 text-right font-mono">12,250*</td>
+<td class="py-2.5 px-3 text-right font-mono">4,368</td>
+<td class="py-2.5 px-3 text-right font-mono text-emerald-700">21,174</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</section>
+<!-- SECTION 6: MEALS SERVED TO SUBSIDIARY -->
+<section class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm" id="section-subsidiary">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 mb-5 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-[10px] font-bold rounded">SECTION 6</span>
+<h2 class="text-lg font-bold text-slate-900 tracking-tight">MEALS SERVED TO SUBSIDIARY</h2>
+</div>
+<p class="text-xs text-slate-500 mt-0.5">Autonomous feeding support records (Reported independently; not conflated with nationwide total)</p>
+</div>
+<span class="px-2.5 py-1 bg-amber-100 text-amber-900 rounded-md text-xs font-semibold border border-amber-200">
+            Standalone Special Ledger
+          </span>
+</div>
+<div class="overflow-x-auto rounded-lg border border-slate-200">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-100 font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200">
+<tr>
+<th class="py-2.5 px-4">Month</th>
+<th class="py-2.5 px-4 text-right">Breakfast</th>
+<th class="py-2.5 px-4 text-right">Lunch</th>
+<th class="py-2.5 px-4 text-right">PM Snack</th>
+<th class="py-2.5 px-4 text-right">Dinner</th>
+<th class="py-2.5 px-4 text-right">RO</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr class="hover:bg-slate-50 bg-red-50/20">
+<td class="py-2.5 px-4 font-bold text-slate-900">September</td>
+<td class="py-2.5 px-4 text-right font-mono font-semibold text-[#b5121b]">2,583</td>
+<td class="py-2.5 px-4 text-right font-mono font-semibold text-slate-700">2,574</td>
+<td class="py-2.5 px-4 text-right font-mono font-semibold text-slate-700">80</td>
+<td class="py-2.5 px-4 text-right font-mono font-semibold text-slate-700">2,647</td>
+<td class="py-2.5 px-4 text-right font-mono font-semibold text-slate-700">37</td>
+</tr>
+<tr class="hover:bg-slate-50 text-slate-400">
+<td class="py-2.5 px-4 font-medium">October</td>
+<td class="py-2.5 px-4 text-center font-mono italic bg-slate-50" colspan="5">No data available</td>
+</tr>
+<tr class="hover:bg-slate-50 text-slate-400">
+<td class="py-2.5 px-4 font-medium">November</td>
+<td class="py-2.5 px-4 text-center font-mono italic bg-slate-50" colspan="5">No data available</td>
+</tr>
+<tr class="hover:bg-slate-50 text-slate-400">
+<td class="py-2.5 px-4 font-medium">December</td>
+<td class="py-2.5 px-4 text-center font-mono italic bg-slate-50" colspan="5">No data available</td>
+</tr>
+</tbody>
+<tfoot class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-300">
+<tr>
+<td class="py-2.5 px-4">Total</td>
+<td class="py-2.5 px-4 text-right font-mono font-bold text-[#b5121b]">2,583</td>
+<td class="py-2.5 px-4 text-right font-mono font-bold">2,574</td>
+<td class="py-2.5 px-4 text-right font-mono font-bold">80</td>
+<td class="py-2.5 px-4 text-right font-mono font-bold">2,647</td>
+<td class="py-2.5 px-4 text-right font-mono font-bold">37</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div class="mt-3 p-2.5 bg-slate-50 rounded-lg text-slate-600 text-xs flex items-start gap-2 border border-slate-200">
+<span class="material-symbols-outlined text-[16px] text-amber-700 shrink-0">info</span>
+<span class=""><strong>Official Audit Directive:</strong> These subsidiary meal figures are reported independently and must not be presumed included or added to the nationwide total without verified COA cross-endorsement.</span>
+</div>
+</section>
+<!-- SECTION 7: PRESERVED BENEFICIARY AND VOLUNTEER ANALYTICS -->
+<section class="space-y-6" id="section-preserved-analytics">
+<div class="flex items-center gap-2 pt-2">
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-[10px] font-bold rounded">SECTION 7</span>
+<h2 class="text-lg font-bold text-slate-900 tracking-tight">PRESERVED BENEFICIARY AND VOLUNTEER ANALYTICS</h2>
+</div>
+<!-- Row 1: Beneficiary Demographics & Civil Status -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Demographics (N=7,919) -->
+<div class="lg:col-span-5 bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
+<div>
+<h3 class="font-bold text-sm text-slate-900">Beneficiary Demographics</h3>
+<p class="text-[11px] text-slate-500">Gender distribution across validated profiling registries</p>
+</div>
+<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded">Audited</span>
+</div>
+<div class="flex items-center justify-center gap-6 py-2">
+<div class="relative w-36 h-36 flex items-center justify-center shrink-0">
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 100 100">
+<circle cx="50" cy="50" fill="transparent" r="38" stroke="#b5121b" stroke-dasharray="58.4 41.6" stroke-dashoffset="0" stroke-width="16"></circle>
+<circle cx="50" cy="50" fill="transparent" r="38" stroke="#f87171" stroke-dasharray="41.6 58.4" stroke-dashoffset="-58.4" stroke-width="16"></circle>
+</svg>
+<div class="absolute text-center">
+<div class="text-lg font-extrabold font-mono text-slate-900 leading-tight">7,919</div>
+<div class="text-[9px] uppercase tracking-wider text-slate-500 font-bold">Total Pax</div>
+</div>
+</div>
+<div class="space-y-2 w-full">
+<div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded bg-[#b5121b]"></span>
+<div>
+<div class="font-semibold text-slate-800">Male</div>
+<div class="text-[10px] text-slate-500">Validated Cardholders</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono font-bold">4,626</div>
+<span class="text-[10px] text-[#b5121b] font-semibold">58.4%</span>
+</div>
+</div>
+<div class="p-2.5 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-between text-xs">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded bg-red-400"></span>
+<div>
+<div class="font-semibold text-slate-800">Female</div>
+<div class="text-[10px] text-slate-500">Validated Cardholders</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-mono font-bold">3,293</div>
+<span class="text-[10px] text-red-600 font-semibold">41.6%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p class="text-[11px] text-slate-500 mt-3 pt-2 border-t border-slate-100 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-emerald-600">check_circle</span>
+              Cross-referenced against Listahanan 3 registries.
+            </p>
+</div>
+<!-- Civil Status (7,377 profiled) -->
+<div class="lg:col-span-7 bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
+<div>
+<h3 class="font-bold text-sm text-slate-900">Civil Status Registry Analysis</h3>
+<p class="text-[11px] text-slate-500">Profiled Household Heads (7,377 profiled of 7,919 total records)</p>
+</div>
+<span class="text-xs font-mono font-semibold px-2 py-0.5 bg-slate-100 rounded text-slate-700">93.2% Profiled</span>
+</div>
+<div class="overflow-x-auto rounded-lg border border-slate-200">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-100 font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200">
+<tr>
+<th class="py-2 px-3">Classification</th>
+<th class="py-2 px-3 text-right">Headcount</th>
+<th class="py-2 px-3 text-right">Percent</th>
+<th class="py-2 px-3">Visual Ratio</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Single</td><td class="py-1.5 px-3 text-right font-mono font-bold">5,004</td><td class="py-1.5 px-3 text-right font-mono text-slate-600">63.2%</td><td class="py-1.5 px-3"><div class="w-full bg-slate-200 rounded-full h-1.5"><div class="bg-[#b5121b] h-1.5 rounded-full" style="width: 63.2%"></div></div></td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Married</td><td class="py-1.5 px-3 text-right font-mono font-bold">1,781</td><td class="py-1.5 px-3 text-right font-mono text-slate-600">22.5%</td><td class="py-1.5 px-3"><div class="w-full bg-slate-200 rounded-full h-1.5"><div class="bg-red-400 h-1.5 rounded-full" style="width: 22.5%"></div></div></td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Widowed</td><td class="py-1.5 px-3 text-right font-mono font-bold">255</td><td class="py-1.5 px-3 text-right font-mono text-slate-600">3.2%</td><td class="py-1.5 px-3"><div class="w-full bg-slate-200 rounded-full h-1.5"><div class="bg-emerald-600 h-1.5 rounded-full" style="width: 3.2%"></div></div></td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Common-law</td><td class="py-1.5 px-3 text-right font-mono font-bold">238</td><td class="py-1.5 px-3 text-right font-mono text-slate-600">3.0%</td><td class="py-1.5 px-3"><div class="w-full bg-slate-200 rounded-full h-1.5"><div class="bg-amber-500 h-1.5 rounded-full" style="width: 3.0%"></div></div></td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Separated</td><td class="py-1.5 px-3 text-right font-mono font-bold">99</td><td class="py-1.5 px-3 text-right font-mono text-slate-600">1.3%</td><td class="py-1.5 px-3"><div class="w-full bg-slate-200 rounded-full h-1.5"><div class="bg-slate-500 h-1.5 rounded-full" style="width: 1.3%"></div></div></td></tr>
+</tbody>
+<tfoot class="bg-slate-50 font-bold border-t border-slate-200">
+<tr><td class="py-1.5 px-3">Audited Subtotal</td><td class="py-1.5 px-3 text-right font-mono font-bold">7,377</td><td class="py-1.5 px-3 text-right font-mono">93.2%</td><td class="py-1.5 px-3 text-[11px] text-slate-500">542 Unclassified (6.8%)</td></tr>
+</tfoot>
+</table>
+</div>
+</div>
+<p class="text-[11px] text-slate-500 mt-2">PSA Marital Classification Standards applied.</p>
+</div>
+</div>
+<!-- Row 2: Vulnerable Sectors -->
+<div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
+<div>
+<h3 class="font-bold text-sm text-slate-900">Vulnerable &amp; Priority Sector Beneficiaries</h3>
+<p class="text-[11px] text-slate-500">Direct target groups profiled under Republic Act 11148 &amp; Philippine Social Protection Framework</p>
+</div>
+<span class="px-2 py-0.5 bg-red-100 text-[#b5121b] text-xs font-semibold rounded">Priority Allocations</span>
+</div>
+<div class="space-y-2.5 bg-slate-50 p-4 rounded-xl border border-slate-200">
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-slate-800">Others (Informal Laborers / Transient Displaced)</span>
+<span class="font-mono font-bold text-slate-900">1,426 <span class="text-slate-500 font-normal">(36.5%)</span></span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-slate-600 h-full rounded-full" style="width: 36.5%"></div></div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-slate-800">Children / Youth</span>
+<span class="font-mono font-bold text-[#b5121b]">1,048 <span class="text-slate-500 font-normal">(26.8%)</span></span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-[#b5121b] h-full rounded-full" style="width: 26.8%"></div></div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-slate-800">Women (Maternal / Lactating Focus)</span>
+<span class="font-mono font-bold text-red-600">747 <span class="text-slate-500 font-normal">(19.1%)</span></span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-red-400 h-full rounded-full" style="width: 19.1%"></div></div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-slate-800">Senior Citizens (60+)</span>
+<span class="font-mono font-bold text-emerald-700">529 <span class="text-slate-500 font-normal">(13.5%)</span></span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-emerald-600 h-full rounded-full" style="width: 13.5%"></div></div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-slate-800">Solo Parents</span>
+<span class="font-mono font-bold text-slate-900">97 <span class="text-slate-500 font-normal">(2.5%)</span></span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-amber-600 h-full rounded-full" style="width: 2.5%"></div></div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-slate-800">Persons with Disabilities (PWD)</span>
+<span class="font-mono font-bold text-slate-900">55 <span class="text-slate-500 font-normal">(1.4%)</span></span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-blue-600 h-full rounded-full" style="width: 1.4%"></div></div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-xs">
+<span class="font-medium text-slate-800">Indigenous People</span>
+<span class="font-mono font-bold text-slate-900">9 <span class="text-slate-500 font-normal">(0.2%)</span></span>
+</div>
+<div class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"><div class="bg-purple-600 h-full rounded-full" style="width: 0.8%"></div></div>
+</div>
+</div>
+<div class="mt-3 flex justify-between text-xs text-slate-500">
+<span class="">Consolidated Sector Sum: <strong>3,911</strong> designated vulnerable headcounts</span>
+<span class="">Standard Deviation: ±2.4%</span>
+</div>
+</div>
+<!-- Row 3: Volunteers by Field Office & Category -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Volunteers per Field Office (5,586) -->
+<div class="lg:col-span-6 bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
+<div>
+<h3 class="font-bold text-sm text-slate-900">Volunteers Per Field Office</h3>
+<p class="text-[11px] text-slate-500">Deployment headcount across operational kitchen hubs</p>
+</div>
+<span class="font-mono text-xs font-bold px-2 py-0.5 bg-slate-100 rounded text-slate-800">5,586 Deployed</span>
+</div>
+<div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+<div class="h-44 flex items-end justify-around gap-4 pb-2 border-b border-slate-200">
+<div class="flex flex-col items-center justify-end h-full w-24">
+<span class="font-mono font-bold text-sm text-[#b5121b]">4,729</span>
+<span class="text-[10px] text-slate-500 font-bold mb-1">84.7%</span>
+<div class="w-14 bg-[#b5121b] rounded-t" style="height: 94.5%;"></div>
+<span class="text-xs font-bold text-slate-800 mt-2">Pasay Hub</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-24">
+<span class="font-mono font-bold text-sm text-slate-800">751</span>
+<span class="text-[10px] text-slate-500 font-bold mb-1">13.4%</span>
+<div class="w-14 bg-red-400 rounded-t" style="height: 15.0%;"></div>
+<span class="text-xs font-bold text-slate-800 mt-2">Cebu Hub</span>
+</div>
+<div class="flex flex-col items-center justify-end h-full w-24">
+<span class="font-mono font-bold text-sm text-slate-800">106</span>
+<span class="text-[10px] text-slate-500 font-bold mb-1">1.9%</span>
+<div class="w-14 bg-slate-400 rounded-t" style="height: 3.5%;"></div>
+<span class="text-xs font-bold text-slate-800 mt-2">Zamboanga</span>
+</div>
+</div>
+<p class="text-[11px] text-slate-500 mt-2">Pasay operates 3 multi-shift preparation lines serving Metro Manila evacuation corridors.</p>
+</div>
+</div>
+</div>
+<!-- Volunteer Category Distribution -->
+<div class="lg:col-span-6 bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-200">
+<div>
+<h3 class="font-bold text-sm text-slate-900">Volunteer Category Distribution</h3>
+<p class="text-[11px] text-slate-500">Affiliation roster across registered entities</p>
+</div>
+<span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded">Audited Roster</span>
+</div>
+<div class="overflow-x-auto rounded-lg border border-slate-200">
+<table class="w-full text-left text-xs">
+<thead class="bg-slate-100 font-bold uppercase tracking-wider text-slate-600 border-b border-slate-200">
+<tr>
+<th class="py-2 px-3">Sector Affiliation</th>
+<th class="py-2 px-3 text-right">Headcount</th>
+<th class="py-2 px-3 text-right">Share (%)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-200">
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Private Sector</td><td class="py-1.5 px-3 text-right font-mono font-bold text-[#b5121b]">3,086</td><td class="py-1.5 px-3 text-right font-mono">55.2%</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Individual Volunteers</td><td class="py-1.5 px-3 text-right font-mono font-bold">885</td><td class="py-1.5 px-3 text-right font-mono">15.8%</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Government Personnel</td><td class="py-1.5 px-3 text-right font-mono font-bold">644</td><td class="py-1.5 px-3 text-right font-mono">11.5%</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">NGOs (Non-Govt Organizations)</td><td class="py-1.5 px-3 text-right font-mono font-bold">501</td><td class="py-1.5 px-3 text-right font-mono">9.0%</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Schools / Universities</td><td class="py-1.5 px-3 text-right font-mono font-bold">345</td><td class="py-1.5 px-3 text-right font-mono">6.2%</td></tr>
+<tr class="hover:bg-slate-50"><td class="py-1.5 px-3 font-semibold text-slate-800">Civic Groups / Religious</td><td class="py-1.5 px-3 text-right font-mono font-bold">144</td><td class="py-1.5 px-3 text-right font-mono">2.6%</td></tr>
+</tbody>
+<tfoot class="bg-slate-50 font-bold border-t border-slate-200">
+<tr><td class="py-1.5 px-3">Total Registered Force</td><td class="py-1.5 px-3 text-right font-mono font-bold">5,586</td><td class="py-1.5 px-3 text-right font-mono">100.0%</td></tr>
+</tfoot>
+</table>
+</div>
+</div>
+<p class="text-[11px] text-slate-500 mt-2">Bayanihan CSR Accreditation Program verified.</p>
+</div>
+</div>
+</section>
+<!-- OFFICIAL FOOTER -->
+<footer class="mt-8 pt-4 pb-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
+<div class="flex items-center gap-2">
+<span class="font-bold text-[#b5121b]">DSWD WGKMS</span>
+<span class="">•</span>
+<span class="">Department of Social Welfare and Development • COA Circular 2021-007 Audited</span>
+</div>
+<div class="font-mono text-[11px] flex items-center gap-3">
+<span class="">SHA-256: 8f9b...e4a1</span>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-semibold">• Ready for Executive Transmittal</span>
+</div>
+</footer>
+</main>
+</div>
+<!-- INTERACTIVE CLIENT SCRIPTS -->
+<script>
+    function filterDashboardLocation(loc) {
+      // sync select inputs
+      document.getElementById('header-loc').value = loc;
+      document.getElementById('filter-location').value = loc;
+
+      const pasaySec = document.getElementById('section-pasay');
+      const cebuSec = document.getElementById('section-cebu');
+      const zambSec = document.getElementById('section-zamboanga');
+
+      if (loc === 'all') {
+        pasaySec.style.display = 'block';
+        cebuSec.style.display = 'block';
+        zambSec.style.display = 'block';
+        window.scrollTo({ top: document.getElementById('section-locations').offsetTop - 80, behavior: 'smooth' });
+      } else if (loc === 'pasay') {
+        pasaySec.style.display = 'block';
+        cebuSec.style.display = 'none';
+        zambSec.style.display = 'none';
+        window.scrollTo({ top: pasaySec.offsetTop - 80, behavior: 'smooth' });
+      } else if (loc === 'cebu') {
+        pasaySec.style.display = 'none';
+        cebuSec.style.display = 'block';
+        zambSec.style.display = 'none';
+        window.scrollTo({ top: cebuSec.offsetTop - 80, behavior: 'smooth' });
+      } else if (loc === 'zamboanga') {
+        pasaySec.style.display = 'none';
+        cebuSec.style.display = 'none';
+        zambSec.style.display = 'block';
+        window.scrollTo({ top: zambSec.offsetTop - 80, behavior: 'smooth' });
+      } else if (loc === 'catbalogan') {
+        alert('Catbalogan City is a planned staging node (Q4 Integration). Operating data is not yet available.');
+      }
+    }
+
+    function setRole(role) {
+      const adminBtn = document.getElementById('toggle-admin');
+      const guestBtn = document.getElementById('toggle-guest');
+      if (role === 'admin') {
+        adminBtn.className = 'px-3 py-1 rounded bg-[#b5121b] text-white text-xs font-semibold shadow-sm transition-all';
+        guestBtn.className = 'px-3 py-1 rounded text-slate-600 hover:text-slate-900 text-xs transition-all';
+      } else {
+        guestBtn.className = 'px-3 py-1 rounded bg-[#b5121b] text-white text-xs font-semibold shadow-sm transition-all';
+        adminBtn.className = 'px-3 py-1 rounded text-slate-600 hover:text-slate-900 text-xs transition-all';
+      }
+    }
+  </script>
+<script>
+(function(){
+ function applyWGKMSRole(role){
+  const guest=String(role).toLowerCase()==='guest';
+  try{localStorage.setItem('wgkms-role',guest?'guest':'admin')}catch(e){}
+  document.querySelectorAll('nav a[href="data-dashboard.html"],nav a[href="inventory.html"]').forEach(a=>a.classList.toggle('hidden',guest));
+  document.querySelectorAll('[data-admin-only]').forEach(el=>el.classList.toggle('hidden',guest));
+  const pairs=[['header-admin-btn','header-guest-btn'],['headerRoleAdmin','headerRoleGuest'],['viewToggleAdmin','viewToggleGuest']];
+  pairs.forEach(([aid,gid])=>{const a=document.getElementById(aid),g=document.getElementById(gid);if(a)a.setAttribute('aria-pressed',String(!guest));if(g)g.setAttribute('aria-pressed',String(guest));});
+  if(guest && /data-dashboard\.html|inventory\.html/.test(location.pathname)) location.replace('index.html');
+ }
+ window.wgkmsSetRole=applyWGKMSRole;
+ document.addEventListener('DOMContentLoaded',()=>{
+  let role='admin';try{role=localStorage.getItem('wgkms-role')||'admin'}catch(e){}
+  applyWGKMSRole(role);
+  ['header-admin-btn','headerRoleAdmin'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>applyWGKMSRole('admin')));
+  ['header-guest-btn','headerRoleGuest'].forEach(id=>document.getElementById(id)?.addEventListener('click',()=>applyWGKMSRole('guest')));
+ });
+})();
+</script>
+</body></html>
